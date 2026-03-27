@@ -1,38 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 html { scroll-behavior: smooth; }
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type="number"] { -moz-appearance: textfield; }
-
 /* =============================================
-   印刷用スタイル
+   印刷用スタイル（@media print）
    ============================================= */
 @media print {
-  .print-hide { display: none !important; }
-  nav, header, #ad-banner { display: none !important; }
-  body { background: white !important; margin: 0 !important; padding: 0 !important; }
-  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
-
-  .report-page { page-break-after: always; }
-
+  /* ── 非表示にする要素 ── */
+  .print-hide,
+  .print\:hidden,
+  nav,
+  header,
+  #ad-banner,
+  #ad-header,
+  footer {
+    display: none !important;
+  }
+  /* position:fixed の要素（BottomNav・フッター広告）を全て非表示 */
+  *[class*="fixed"] {
+    display: none !important;
+  }
+  /* ── 全体リセット ── */
+  html, body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  /* ── overflow-hidden の解除（写真クリップ防止） ── */
+  .overflow-hidden {
+    overflow: visible !important;
+  }
+  /* ── 写真グリッド ── */
   .photo-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
   }
-
+  /* ── 写真：印刷時は aspect-square / object-cover をリセット ── */
+  .print-image,
   img {
     max-width: 100% !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-
-  .print-bg {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+  /* ── 背景色を印刷（タイトルバーなど） ── */
+  .print-color,
+  [class*="bg-teal"],
+  [class*="bg-green"],
+  [class*="bg-blue"],
+  [class*="bg-yellow"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  /* ── ページ区切り ── */
+  .report-page {
+    page-break-after: always;
+    break-after: always;
+  }
+  /* ── シャドウをシンプルに ── */
+  .shadow-sm, .shadow, .shadow-lg {
+    box-shadow: none !important;
   }
 }
