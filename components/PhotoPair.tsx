@@ -145,7 +145,7 @@ export default function PhotoPairCard({ pair, index, onChange, onDelete }: Props
                 <span className="text-xs mt-1">撮影</span>
               </button>
             )}
-            <input ref={beforeRef} type="file" accept="image/*" capture="environment"
+            <input ref={beforeRef} type="file" accept="image/*" 
               className="hidden" onChange={(e) => handleImage(e, "beforeImage")} />
             <textarea placeholder="施工前メモ" value={pair.beforeMemo}
               onChange={(e) => onChange({ ...pair, beforeMemo: e.target.value })}
@@ -180,7 +180,7 @@ export default function PhotoPairCard({ pair, index, onChange, onDelete }: Props
                 <span className="text-xs mt-1">撮影</span>
               </button>
             )}
-            <input ref={afterRef} type="file" accept="image/*" capture="environment"
+            <input ref={afterRef} type="file" accept="image/*" 
               className="hidden" onChange={(e) => handleImage(e, "afterImage")} />
             <textarea placeholder="施工後メモ" value={pair.afterMemo}
               onChange={(e) => onChange({ ...pair, afterMemo: e.target.value })}
